@@ -9,7 +9,7 @@ import Headerbar from "./components/Headerbar";
 
 function Layout() {
   const location = useLocation();
-  const checkingIncludePathName = ["/", "/login", "signup"].includes(
+  const checkingIncludePathName = ["/", "/login", "/signup"].includes(
     location.pathname
   );
   return (
