@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -7,11 +7,14 @@ import Test from "./pages/Test";
 import TestResult from "./pages/TestResult ";
 import Headerbar from "./components/Headerbar";
 
-function App() {
+function Layout() {
+  const location = useLocation();
+  const checkingIncludePathName = ["/", "/login", "signup"].includes(
+    location.pathname
+  );
   return (
-    <BrowserRouter>
-      <Headerbar />
-
+    <>
+      {checkingIncludePathName && <Headerbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -20,6 +23,14 @@ function App() {
         <Route path="/test" element={<Test />} />
         <Route path="/testResult" element={<TestResult />} />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Layout />
     </BrowserRouter>
   );
 }

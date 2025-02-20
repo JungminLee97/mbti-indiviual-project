@@ -25,6 +25,8 @@ const AuthForm = () => {
           <h1
             style={{
               margin: "15px",
+              fontSize: "20px",
+              fontWeight: "bold",
             }}
           >
             로그인
