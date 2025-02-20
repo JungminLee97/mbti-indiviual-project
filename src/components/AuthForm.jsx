@@ -1,6 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router";
 
 const AuthForm = () => {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div
@@ -43,22 +51,29 @@ const AuthForm = () => {
               boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
             }}
           >
-            <input
-              style={{ border: "3px solid blue" }}
-              placeholder="아이디"
-            ></input>
-            <input
-              style={{ border: "3px solid blue" }}
-              placeholder="비밀번호"
-            ></input>
-            <button
-              style={{
-                backgroundColor: "red",
-                border: "3px solid white",
-              }}
-            >
-              로그인
-            </button>
+            <form onSubmit={handleSubmit}>
+              <input
+                style={{ border: "3px solid blue" }}
+                placeholder="아이디"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+              ></input>
+              <input
+                style={{ border: "3px solid blue" }}
+                placeholder="비밀번호"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+              <button
+                type="submit"
+                style={{
+                  backgroundColor: "red",
+                  border: "3px solid white",
+                }}
+              >
+                로그인
+              </button>
+            </form>
           </div>
           <h4 style={{ textAlign: "center", margin: "10px" }}>
             계정이 없으신가요?{" "}
