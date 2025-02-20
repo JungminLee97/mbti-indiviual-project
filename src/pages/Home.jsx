@@ -95,7 +95,7 @@ const Home = () => {
         <Link to="/login">
           <button
             onClick={() => {
-              <Link to="/login" />;
+              alert("후헤헤 로그인해야지~"), (<Link to="/login" />);
             }}
             style={{
               backgroundColor: "red",
