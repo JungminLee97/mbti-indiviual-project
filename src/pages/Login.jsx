@@ -7,20 +7,21 @@ import AuthContext from "../context/AuthContext";
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
   const { signin } = useContext(AuthContext);
-
   const handleLogin = async (formData) => {
     try {
       const getData = await login(formData);
 
       if (getData.success) {
         signin(getData.accessToken);
+
+        alert("로그인 성공!");
         navigate("/profile");
       } else {
         alert("로그인 실패!!");
       }
     } catch (error) {
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
       console.error(error);
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
     }
   };
 

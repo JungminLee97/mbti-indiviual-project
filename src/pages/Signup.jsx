@@ -10,6 +10,7 @@ const Signup = () => {
     try {
       const getdata = await register(formData);
       if (getdata.success) {
+        alert("회원가입 성공! 경 축!");
         navigate("/login");
       } else {
         alert("회원가입 실패!!");

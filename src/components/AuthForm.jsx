@@ -9,14 +9,21 @@ const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
   });
 
   const handleChange = (e) => {
-    setFormData(e.target.value);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleSignup(formData);
-    handleLogin(formData);
+
     try {
+      if (mode === "signup") {
+        await handleSignup(formData);
+      } else {
+        await handleLogin(formData);
+      }
     } catch (error) {
       console.error("Login error", error);
       alert("Login failed");
@@ -33,6 +40,7 @@ const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
           <input
             className="border-4 border-blue-500"
             placeholder="아이디"
+            name="id"
             type="text"
             value={formData.id}
             onChange={handleChange}
@@ -41,6 +49,7 @@ const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
           <input
             className="border-4 border-blue-500"
             placeholder="비밀번호"
+            name="password"
             type="password"
             value={formData.password}
             onChange={handleChange}
@@ -50,6 +59,7 @@ const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
             <input
               className="border-4 border-blue-500"
               placeholder="닉네임"
+              name="nickname"
               value={formData.nickname}
               onChange={handleChange}
               required
