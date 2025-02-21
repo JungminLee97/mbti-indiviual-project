@@ -7,7 +7,9 @@ const Signup = () => {
   // 완성된 로직들이 아니에요! 참고만 하세요!
   const handleSignup = async (formData) => {
     try {
-      await register(formData);
+      const getdata = await register(formData);
+      localStorage.setItem("token", getdata.token);
+      navigate("/");
     } catch (error) {
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
     }

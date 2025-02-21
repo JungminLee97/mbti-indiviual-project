@@ -1,12 +1,19 @@
 import { useState } from "react";
 const AuthForm = ({ mode, onSubmit }) => {
-  // 무엇을 formData 에 넣어야 할까요?
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+  });
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setFormData(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    onsubmit(formData);
+    localStorage.setItem("formData.id", JSON.stringify(formData));
   };
 
   return (
