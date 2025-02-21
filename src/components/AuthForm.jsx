@@ -1,5 +1,7 @@
 import { useState } from "react";
-const AuthForm = ({ mode, onSubmit }) => {
+const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
+  // const { signin } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     id: "",
     password: "",
@@ -10,10 +12,15 @@ const AuthForm = ({ mode, onSubmit }) => {
     setFormData(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onsubmit(formData);
-    localStorage.setItem("formData.id", JSON.stringify(formData));
+    handleSignup(formData);
+    handleLogin(formData);
+    try {
+    } catch (error) {
+      console.error("Login error", error);
+      alert("Login failed");
+    }
   };
 
   return (

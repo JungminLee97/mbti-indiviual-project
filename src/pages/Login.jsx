@@ -1,8 +1,23 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AuthForm from "../components/AuthForm";
+import { login } from "../api/auth";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+
 const Login = ({ setUser }) => {
+  const navigate = useNavigate();
+  const { signin } = useContext(AuthContext);
+
   const handleLogin = async (formData) => {
     try {
+      const getData = await login(formData);
+
+      if (getData.success) {
+        signin(getData.accessToken);
+        navigate("/profile");
+      } else {
+        alert("로그인 실패!!");
+      }
     } catch (error) {
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
       console.error(error);
@@ -17,7 +32,7 @@ const Login = ({ setUser }) => {
         mt-[40px] rounded-[10px] shadow-2xl shadow-black border-4  border-white"
         >
           <h1 className="m-[15px] text-[20px] font-bold">{"로그인"}</h1>
-          <AuthForm mode="login" />
+          <AuthForm mode="login" handleLogin={handleLogin} />
           <h4 className="text-center mt-[5px] mb-[5px]">
             {"계정이 없으신가요?"}
             <Link className="text-red-600 font-bold ml-[8px]" to={"/signup"}>

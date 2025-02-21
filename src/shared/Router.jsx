@@ -7,20 +7,21 @@ import Signup from "../pages/Signup";
 import Test from "../pages/Test";
 import TestResult from "../pages/TestResult";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
 
 // const ProtectedRouteSecondMethods  = ({ element: Element, ...rest }) => {
 //   const { isAuthenticated } = useContext(AuthContext);
 //   return isAuthenticated ? <Element {...rest} /> : <Navigate to="/login" />;
 // };
 
-const PublicRoute = ({ element: Element, ...rest }) => {
-  const { isAuthenticated } = useContext(AuthContext);
-  return !isAuthenticated ? <Element {...rest} /> : <Navigate to="/profile" />;
-};
-
 const RouterComponent = ({ isAuthenticated }) => {
+  const PublicRoute = ({ element: Element, ...rest }) => {
+    return !isAuthenticated ? (
+      <Element {...rest} />
+    ) : (
+      <Navigate to="/profile" />
+    );
+  };
+
   return (
     <Routes>
       <Route element={<Headerbar />}>
