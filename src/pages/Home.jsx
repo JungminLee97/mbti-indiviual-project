@@ -3,50 +3,13 @@ import { Link } from "react-router";
 const Home = () => {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "15px",
-          margin: "25px",
-          gap: "3rem",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "35px",
-            fontWeight: "bold",
-          }}
-        >
-          무료 성격 테스트
-        </h1>
-        <h3
-          style={{
-            fontWeight: "bold",
-          }}
-        >
+      <div className="flex flex-col justify-center items-center text-base m-6 gap-12   ">
+        <h1 className="text-4xl font-bold">무료 성격 테스트</h1>
+        <h3 className="font-bold">
           자신의 성격 유형을 확인할수 있도록 솔직하게 답변해 주세요.
         </h3>
-        <div
-          style={{
-            display: "flex",
-            gap: "50px",
-          }}
-        >
-          <div
-            style={{
-              width: "180px",
-              height: "180px",
-              textWrap: "wrap",
-              fontSize: "13px",
-              fontWeight: "bold",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.3)",
-              textAlign: "center",
-              alignContent: "center",
-            }}
-          >
+        <div className="flex gap-[50px]">
+          <div className="w-[180px] h-[180px] text-wrap text-[13px] text-center content-center font-bold shadow-2xl shadow-blue-400">
             <h3>성격 유형 검사</h3>
             <br />
             <p>
@@ -54,36 +17,14 @@ const Home = () => {
               미치는지 알아보세요.
             </p>
           </div>
-          <div
-            style={{
-              width: "180px",
-              height: "180px",
-              textWrap: "wrap",
-              fontSize: "13px",
-              fontWeight: "bold",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.3)",
-              textAlign: "center",
-              alignContent: "center",
-            }}
-          >
+          <div className="w-[180px] h-[180px] text-wrap text-[13px] text-center content-center font-bold shadow-2xl shadow-blue-400">
             <h3>성격 유형 이해</h3>
             <br />
             <p>
               다른 사람들이 어떻게 행동하는지 이해하는 데 도움을 줄 수 있습니다.
             </p>
           </div>
-          <div
-            style={{
-              width: "180px",
-              height: "180px",
-              textWrap: "wrap",
-              fontSize: "13px",
-              fontWeight: "bold",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.3)",
-              textAlign: "center",
-              alignContent: "center",
-            }}
-          >
+          <div className="w-[180px] h-[180px] text-wrap text-[13px] text-center content-center font-bold shadow-2xl shadow-blue-400">
             <h3>팀 평가</h3>
             <br />
             <p>
@@ -94,15 +35,10 @@ const Home = () => {
         </div>
         <Link to="/login">
           <button
+            className="bg-red-500 border-4 border-white text-white p-[10px] rounded-[<20px>]
+ "
             onClick={() => {
               alert("후헤헤 로그인해야지~"), (<Link to="/login" />);
-            }}
-            style={{
-              backgroundColor: "red",
-              border: "3px solid white",
-              color: "white",
-              padding: "10px",
-              borderRadius: "20px",
             }}
           >
             내 성격 알아보러 가기

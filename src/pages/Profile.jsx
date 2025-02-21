@@ -1,64 +1,22 @@
 const Profile = () => {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className="flex justify-center items-center">
         <div
-          style={{
-            backgroundColor: "lightblue",
-            width: "auto",
-            minWidth: "350px",
-            height: "auto",
-            minHeight: "250px",
-            marginTop: "40px",
-            borderRadius: "10px",
-            boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-          }}
+          className="bg-blue-300 w-auto min-w-[350px] h-auto min-h-[250px]
+        mt-10 rounded-10 shadow-xl shadow-black-500"
         >
-          <h1
-            style={{
-              margin: "15px",
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
-          >
-            프로필수정
-          </h1>
+          <h1 className="text-[20px] font-bold m-[15px]">프로필수정</h1>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "300px",
-              height: "150px",
-              justifyContent: "space-evenly",
-              margin: "auto",
-              border: "3px solid lightblue",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-            }}
+            className="flex flex-col w-[300px] h-[150px] justify-evenly
+          m-auto border-4 border-blue-600 shadow-2xl shadow-blue-200    "
           >
-            <p
-              style={{
-                fontSize: "10px",
-                fontWeight: "bold",
-              }}
-            >
-              닉네임
-            </p>
+            <p className="font-bold text-[14px]">닉네임</p>
             <input
-              style={{ border: "3px solid blue" }}
+              className="border-2 border-blue-500"
               placeholder="닉네임을 입력하세요"
             ></input>
-            <button
-              style={{
-                backgroundColor: "red",
-                border: "3px solid white",
-              }}
-            >
+            <button className="bg-red-500 text-black font-bold border-2 border-white">
               프로필 업데이트
             </button>
           </div>

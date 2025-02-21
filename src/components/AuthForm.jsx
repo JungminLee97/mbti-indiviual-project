@@ -18,56 +18,28 @@ const AuthForm = ({ mode }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className="flex justify-center items-center">
         <div
-          style={{
-            backgroundColor: "lightblue",
-            width: "auto",
-            minWidth: "350px",
-            height: "auto",
-            minHeight: "350px",
-            marginTop: "40px",
-            borderRadius: "10px",
-            boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-          }}
+          className="bg-blue-300 w-auto min-w-[350px] h-auto min-h-[350px]
+        mt-[40px] rounded-[10px] shadow-2xl shadow-black border-4  border-white"
         >
-          <h1
-            style={{
-              margin: "15px",
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
-          >
+          <h1 className="m-[15px] text-[20px] font-bold">
             {isSignup ? "회원가입" : "로그인"}
           </h1>
           <form onSubmit={handleSubmit}>
             <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "280px",
-                height: "280px",
-                justifyContent: "space-around",
-                margin: "auto",
-                border: "3px solid lightblue",
-                boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-              }}
+              className="flex flex-col w-[280px] h-[280px]
+            justify-around m-auto border-4 border-white-300 shadow-xl shadow-gray-400 "
             >
               <input
-                style={{ border: "3px solid blue" }}
+                className="border-4 border-blue-500"
                 placeholder="아이디"
                 type="text"
                 value={id}
                 onChange={(e) => setId(e.target.value)}
               ></input>
               <input
-                style={{ border: "3px solid blue" }}
+                className="border-4 border-blue-500"
                 placeholder="비밀번호"
                 type="password"
                 value={password}
@@ -75,26 +47,26 @@ const AuthForm = ({ mode }) => {
               ></input>
               {isSignup && (
                 <input
-                  style={{ border: "2px solid blue", padding: "8px" }}
+                  className="border-4 border-blue-500"
                   placeholder="닉네임"
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                 />
               )}
               <button
+                className="bg-red-600 border-4 border-blue-500 text-white"
                 type="submit"
-                style={{
-                  backgroundColor: "red",
-                  border: "3px solid white",
-                }}
               >
                 {isSignup ? "회원가입" : "로그인"}
               </button>
             </div>
           </form>
-          <h4 style={{ textAlign: "center", margin: "10px" }}>
+          <h4 className="text-center mt-[5px] mb-[5px]">
             {isSignup ? "이미 계정이 있으신가요?" : "계정이 없으신가요?"}
-            <Link style={{ color: "red" }} to={isSignup ? "/login" : "/signup"}>
+            <Link
+              className="text-red-600 font-bold ml-[8px]"
+              to={isSignup ? "/login" : "/signup"}
+            >
               {isSignup ? "로그인" : "회원가입"}
             </Link>
           </h4>
