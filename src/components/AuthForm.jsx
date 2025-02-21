@@ -1,12 +1,19 @@
-import { useState } from "react";
 import { Link } from "react-router";
-
-const AuthForm = () => {
+import { useState } from "react";
+const AuthForm = ({ mode }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+
+  const isSignup = mode === "signup";
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isSignup) {
+      console.log("회원가입:", { id, password, nickname });
+    } else {
+      console.log("로그인:", { id, password });
+    }
   };
 
   return (
@@ -37,33 +44,43 @@ const AuthForm = () => {
               fontWeight: "bold",
             }}
           >
-            로그인
+            {isSignup ? "회원가입" : "로그인"}
           </h1>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "280px",
-              height: "280px",
-              justifyContent: "space-around",
-              margin: "auto",
-              border: "3px solid lightblue",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-            }}
-          >
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "280px",
+                height: "280px",
+                justifyContent: "space-around",
+                margin: "auto",
+                border: "3px solid lightblue",
+                boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
+              }}
+            >
               <input
                 style={{ border: "3px solid blue" }}
                 placeholder="아이디"
+                type="text"
                 value={id}
                 onChange={(e) => setId(e.target.value)}
               ></input>
               <input
                 style={{ border: "3px solid blue" }}
                 placeholder="비밀번호"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
+              {isSignup && (
+                <input
+                  style={{ border: "2px solid blue", padding: "8px" }}
+                  placeholder="닉네임"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+              )}
               <button
                 type="submit"
                 style={{
@@ -71,15 +88,15 @@ const AuthForm = () => {
                   border: "3px solid white",
                 }}
               >
-                로그인
+                {isSignup ? "회원가입" : "로그인"}
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
           <h4 style={{ textAlign: "center", margin: "10px" }}>
-            계정이 없으신가요?{" "}
-            <Link style={{ color: "red" }} to={"/signup"}>
-              회원가입
-            </Link>{" "}
+            {isSignup ? "이미 계정이 있으신가요?" : "계정이 없으신가요?"}
+            <Link style={{ color: "red" }} to={isSignup ? "/login" : "/signup"}>
+              {isSignup ? "로그인" : "회원가입"}
+            </Link>
           </h4>
         </div>
       </div>
