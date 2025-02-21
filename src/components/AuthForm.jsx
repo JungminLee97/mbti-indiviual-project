@@ -1,9 +1,5 @@
 import { useState } from "react";
 const AuthForm = ({ mode, onSubmit }) => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-
   // 무엇을 formData 에 넣어야 할까요?
   const [formData, setFormData] = useState({});
 
@@ -24,22 +20,25 @@ const AuthForm = ({ mode, onSubmit }) => {
             className="border-4 border-blue-500"
             placeholder="아이디"
             type="text"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            value={formData.id}
+            onChange={handleChange}
+            required
           ></input>
           <input
             className="border-4 border-blue-500"
             placeholder="비밀번호"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
+            required
           ></input>
           {mode === "signup" && (
             <input
               className="border-4 border-blue-500"
               placeholder="닉네임"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              value={formData.nickname}
+              onChange={handleChange}
+              required
             />
           )}
           <button
