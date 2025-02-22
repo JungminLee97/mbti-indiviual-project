@@ -19,11 +19,9 @@ const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
     e.preventDefault();
 
     try {
-      if (mode === "signup") {
-        await handleSignup(formData);
-      } else {
-        await handleLogin(formData);
-      }
+      mode === "signup"
+        ? await handleSignup(formData)
+        : await handleLogin(formData);
     } catch (error) {
       console.error("Login error", error);
       alert("Login failed");

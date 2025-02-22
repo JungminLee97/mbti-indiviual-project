@@ -5,7 +5,7 @@ const token = localStorage.getItem("accessToken");
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
-
+  const [user, setUser] = useState(null);
   const signin = (token) => {
     localStorage.setItem("accessToken", token);
     setIsAuthenticated(true);
@@ -17,7 +17,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signin, signout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, signin, signout, user, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

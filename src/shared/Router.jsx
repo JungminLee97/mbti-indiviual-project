@@ -18,7 +18,7 @@ const RouterComponent = ({ isAuthenticated }) => {
     return !isAuthenticated ? (
       <Element {...rest} />
     ) : (
-      <Navigate to="/profile" />
+      <Navigate to="/profile" replace /> // 로그인 상태일 때 프로필 페이지로 리디렉션
     );
   };
 

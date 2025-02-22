@@ -1,21 +1,25 @@
 import { Link, useNavigate } from "react-router";
 import AuthForm from "../components/AuthForm";
 import { login } from "../api/auth";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const navigate = useNavigate();
   const { signin } = useContext(AuthContext);
+
   const handleLogin = async (formData) => {
     try {
+      console.log("전송할 데이터:", formData);
       const getData = await login(formData);
-
+      console.log("로그인 응답:", getData);
       if (getData.success) {
         signin(getData.accessToken);
-
+        console.log("저장된 토큰 확인:", getData.accessToken);
         alert("로그인 성공!");
+        console.log("✅ 로그인 성공, 프로필 페이지로 이동!");
         navigate("/profile");
+        console.log("🔍 navigate 실행 직후!");
       } else {
         alert("로그인 실패!!");
       }

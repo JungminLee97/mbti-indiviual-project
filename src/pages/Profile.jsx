@@ -1,14 +1,51 @@
-import React, { useState } from "react";
-import { updateProfile } from "../api/auth";
+import { useEffect, useState } from "react";
+import { getUserProfile, updateProfile } from "../api/auth";
 
 const Profile = ({ user, setUser }) => {
   const [nickname, setNickname] = useState(user?.nickname || "");
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          const userProfile = await getUserProfile(token);
+          setUser(userProfile); // 사용자 정보 설정
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+    fetchUserProfile();
+  }, [setUser]);
+
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const token = localStorage.getItem("accessToken", token);
+      const formData = new FormData();
+      formData.append("nickname", nickname);
+      const changedProfileContent = await updateProfile({ nickname }, token);
+      if (changedProfileContent.success) {
+        setUser((prevState) => {
+          return {
+            ...prevState,
+            nickname: changedProfileContent.nickname,
+          };
+        });
+        alert("프로필 업데이트 성공 경 축");
+        setNickname("");
+      } else {
+        alert("프로필 업데이트 실패!!");
+      }
+    } catch (error) {
+      console.error("Profile update error", error);
+      alert("Profile update failed");
+    }
   };
   return (
     <>
