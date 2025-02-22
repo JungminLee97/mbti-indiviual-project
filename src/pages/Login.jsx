@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import AuthForm from "../components/AuthForm";
 import { login } from "../api/auth";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 
 const Login = ({ setUser }) => {
