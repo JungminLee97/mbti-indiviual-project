@@ -4,10 +4,10 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Signup from "../pages/Signup";
-import Test from "../pages/Test";
 import TestResult from "../pages/TestResult";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import TestPage from "../pages/TestPage";
 // import ProtectedRoute from "../components/ProtectedRoute";
 
 // const ProtectedRouteSecondMethods  = ({ element: Element, ...rest }) => {
@@ -41,7 +41,7 @@ const RouterComponent = () => {
 
         {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}> */}
         <Route path="/profile" element={<UnPublicRoute element={Profile} />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/testPage" element={<TestPage />} />
         <Route path="/testResult" element={<TestResult />} />
         {/* </Route> */}
       </Route>
