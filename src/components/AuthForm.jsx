@@ -1,7 +1,5 @@
 import { useState } from "react";
-const AuthForm = ({ mode, onSubmit, handleSignup, handleLogin }) => {
-  // const { signin } = useContext(AuthContext);
-
+const AuthForm = ({ mode, handleSignup, handleLogin }) => {
   const [formData, setFormData] = useState({
     id: "",
     password: "",

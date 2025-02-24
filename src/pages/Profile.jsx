@@ -3,9 +3,9 @@ import { getUserProfile, updateProfile } from "../api/auth";
 import { useNavigate } from "react-router";
 import AuthContext from "../context/AuthContext";
 
-const Profile = ({ user, setUser }) => {
-  const [nickname, setNickname] = useState(user?.nickname || "");
-  const { isAuthenticated } = useContext(AuthContext);
+const Profile = () => {
+  const { isAuthenticated, user, setUser } = useContext(AuthContext);
+  const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
@@ -15,8 +15,17 @@ const Profile = ({ user, setUser }) => {
       const fetchUserProfile = async () => {
         try {
           const token = localStorage.getItem("accessToken");
+          // console.log(token);
           const userProfile = await getUserProfile(token);
-          setUser(userProfile); // 사용자 정보 설정
+
+          if (userProfile.success) {
+            setUser((prevUser) =>
+              JSON.stringify(prevUser) !== JSON.stringify(userProfile)
+                ? userProfile
+                : prevUser
+            );
+          }
+          // 사용자 정보 설정
         } catch (error) {
           console.error("Error fetching user profile:", error);
         }
@@ -32,10 +41,16 @@ const Profile = ({ user, setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("accessToken", token);
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        alert("로그인하고오세요~");
+        navigate("/login");
+        return;
+      }
       const formData = new FormData();
       formData.append("nickname", nickname);
       const changedProfileContent = await updateProfile(token, formData);
+      // console.log(changedProfileContent);
       if (changedProfileContent.success) {
         setUser((prevState) => {
           return {
@@ -44,6 +59,7 @@ const Profile = ({ user, setUser }) => {
           };
         });
         alert("프로필 업데이트 성공 경 축");
+        // console.log(user);
         setNickname("");
       } else {
         alert("프로필 업데이트 실패!!");
@@ -66,7 +82,7 @@ const Profile = ({ user, setUser }) => {
               className="flex flex-col w-[300px] h-[150px] justify-evenly
           m-auto border-4 border-blue-600 shadow-2xl shadow-blue-200    "
             >
-              <p className="font-bold text-[14px]">닉네임</p>
+              <p className="font-bold text-[14px]">닉네임:{user?.nickname}</p>
               <input
                 className="border-2 border-blue-500"
                 placeholder="닉네임을 입력하세요"
