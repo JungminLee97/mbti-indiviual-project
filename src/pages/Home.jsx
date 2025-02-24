@@ -1,6 +1,11 @@
-import { Link } from "react-router";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router";
+import AuthContext from "../context/AuthContext";
 
 const Home = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex flex-col justify-center items-center text-base m-6 gap-12   ">
@@ -38,7 +43,12 @@ const Home = () => {
             className="bg-red-500 border-4 border-white text-white p-[10px] rounded-[<20px>]
  "
             onClick={() => {
-              alert("후헤헤 로그인해야지~"), (<Link to="/login" />);
+              if (!isAuthenticated) {
+                alert("후헤헤 로그인해야지~");
+                navigate("/login");
+              } else {
+                navigate("/profile");
+              }
             }}
           >
             내 성격 알아보러 가기

@@ -2,8 +2,6 @@ import axios from "axios";
 
 const API_URL = "https://www.nbcamp-react-auth.link";
 
-// const token = localStorage.getItem("accessToken");
-
 export const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;
@@ -26,7 +24,7 @@ export const getUserProfile = async (token) => {
   return response.data;
 };
 
-export const updateProfile = async (formData) => {
+export const updateProfile = async (token, formData) => {
   const response = await axios.patch(`${API_URL}/profile`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,

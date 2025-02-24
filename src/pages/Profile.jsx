@@ -1,23 +1,29 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUserProfile, updateProfile } from "../api/auth";
+import { useNavigate } from "react-router";
+import AuthContext from "../context/AuthContext";
 
 const Profile = ({ user, setUser }) => {
   const [nickname, setNickname] = useState(user?.nickname || "");
-
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
+    if (!isAuthenticated) {
+      alert("로그인이 필요합니다");
+      navigate("/login");
+    } else {
+      const fetchUserProfile = async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
           const userProfile = await getUserProfile(token);
           setUser(userProfile); // 사용자 정보 설정
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
         }
-      } catch (error) {
-        console.error("Error fetching user profile:", error);
-      }
-    };
-    fetchUserProfile();
-  }, [setUser]);
+      };
+      fetchUserProfile();
+    }
+  }, [isAuthenticated, navigate, setUser]);
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
@@ -29,7 +35,7 @@ const Profile = ({ user, setUser }) => {
       const token = localStorage.getItem("accessToken", token);
       const formData = new FormData();
       formData.append("nickname", nickname);
-      const changedProfileContent = await updateProfile({ nickname }, token);
+      const changedProfileContent = await updateProfile(token, formData);
       if (changedProfileContent.success) {
         setUser((prevState) => {
           return {
