@@ -41,7 +41,7 @@ const Headerbar = () => {
             <Link to={"/profile"}>
               <p className="mr-[20px]">프로필</p>
             </Link>
-            <Link to={"/testpage"}>
+            <Link to={"/testPage"}>
               <p className="mr-[20px]">테스트</p>
             </Link>
             <Link to={"/testResult"}>

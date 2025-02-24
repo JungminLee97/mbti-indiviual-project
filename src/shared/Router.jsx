@@ -39,11 +39,9 @@ const RouterComponent = () => {
         <Route path="/login" element={<PublicRoute element={Login} />} />
         <Route path="/signup" element={<PublicRoute element={Signup} />} />
 
-        {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}> */}
         <Route path="/profile" element={<UnPublicRoute element={Profile} />} />
         <Route path="/testPage" element={<TestPage />} />
         <Route path="/testResult" element={<TestResult />} />
-        {/* </Route> */}
       </Route>
     </Routes>
   );

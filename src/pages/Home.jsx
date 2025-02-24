@@ -6,6 +6,14 @@ const Home = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const PageMoveHandle = async () => {
+    if (!isAuthenticated) {
+      alert("후헤헤 로그인해야지~");
+      navigate("/login");
+    } else {
+      navigate("/testPage");
+    }
+  };
   return (
     <>
       <div className="flex flex-col justify-center items-center text-base m-6 gap-12   ">
@@ -38,22 +46,13 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <Link to="/login">
-          <button
-            className="bg-red-500 border-4 border-white text-white p-[10px] rounded-[<20px>]
- "
-            onClick={() => {
-              if (!isAuthenticated) {
-                alert("후헤헤 로그인해야지~");
-                navigate("/login");
-              } else {
-                navigate("/profile");
-              }
-            }}
-          >
-            내 성격 알아보러 가기
-          </button>
-        </Link>
+
+        <button
+          className="bg-red-500 border-4 border-white text-white p-[10px] rounded-[<20px>]"
+          onClick={PageMoveHandle}
+        >
+          <Link to="/login">내 성격 알아보러 가기</Link>
+        </button>
       </div>
     </>
   );
