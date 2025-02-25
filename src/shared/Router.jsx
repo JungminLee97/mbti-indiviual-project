@@ -8,12 +8,6 @@ import TestResult from "../pages/TestResult";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import TestPage from "../pages/TestPage";
-// import ProtectedRoute from "../components/ProtectedRoute";
-
-// const ProtectedRouteSecondMethods  = ({ element: Element, ...rest }) => {
-//   const { isAuthenticated } = useContext(AuthContext);
-//   return isAuthenticated ? <Element {...rest} /> : <Navigate to="/login" />;
-// };
 
 const RouterComponent = () => {
   const { isAuthenticated } = useContext(AuthContext);

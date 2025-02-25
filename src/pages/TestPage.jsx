@@ -4,18 +4,39 @@ import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { createTestResult } from "../api/testResults";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TestPage = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { user } = useContext(AuthContext);
   const [result, setResult] = useState(null);
+
+  const { mutate } = useMutation({
+    mutationFn: createTestResult,
+    onSuccess: () => {
+      console.log("데이터캐싱완료"),
+        queryClient.invalidateQueries(["testResults"]);
+    },
+    onError: (error) => {
+      console.error("error", error);
+    },
+  });
 
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다. 이 데이터를 어떻게 API 를 이용해 처리 할 지 고민해주세요. */
     setResult(mbtiResult);
-    const saveData = await createTestResult(mbtiResult);
-    setResult(saveData);
+
+    if (user) {
+      mutate({
+        userId: user.id,
+        nickname: user.nickname,
+        result: mbtiResult,
+        visibility: true,
+        date: new Date().toLocaleString("ko-KR"),
+      });
+    }
   };
 
   const handleNavigateToResults = () => {
