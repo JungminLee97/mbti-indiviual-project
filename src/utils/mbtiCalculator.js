@@ -63,6 +63,3 @@ const answers = [
   { type: "J/P", answer: "J" },
   // 추가 질문들...
 ];
-
-const mbtiResult = calculateMBTI(answers);
-console.log("MBTI 결과:", mbtiResult); // 예: "MBTI 결과: ESTJ"
