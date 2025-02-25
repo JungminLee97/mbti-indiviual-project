@@ -13,15 +13,16 @@ export const createTestResult = async (resultData) => {
 };
 
 export const deleteTestResult = async (id, userId) => {
-  const response = await axios.get(`${API_URL}/${id}`);
-  const testResult = response.data;
+  try {
+    // id와 userId를 기반으로 삭제 요청
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      data: { userId }  // 서버로 userId 전달
+    });
 
-  // 본인만 삭제할 수 있도록 조건 추가
-  if (testResult.userId === userId) {
-    await axios.delete(`${API_URL}/${id}`);
-    return testResult;
-  } else {
-    throw new Error("본인의 테스트 결과만 삭제할 수 있습니다.");
+    return response.data;
+  } catch (error) {
+    console.error("삭제 중 오류가 발생했습니다:", error);
+    throw new Error("삭제 중 오류가 발생했습니다.");
   }
 };
 

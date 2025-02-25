@@ -22,7 +22,7 @@ const TestResult = () => {
   // 삭제 처리 함수
   const handleDelete = async (id) => {
     try {
-      await deleteTestResult(id);
+      await deleteTestResult(id, user.id); // user.id 전달
       queryClient.invalidateQueries(["testResults"]);
     } catch (error) {
       console.error("삭제 중 오류가 발생했습니다.", error);
@@ -57,29 +57,34 @@ const TestResult = () => {
       {data.length === 0 ? (
         <p>저장된 테스트 결과가 없습니다.</p>
       ) : (
-        data.map((da) => (
-          <div key={da.id} className="border p-4 rounded-lg my-2">
-            <p>사용자: {da.nickname}</p>
-            <p>MBTI 결과: {da.result}</p>
-            <p>날짜: {da.date}</p>
-            {da.userId === user.id && ( // 수정: user.id가 일치할 때만 버튼 보이도록
-              <>
-                <button
-                  onClick={() => handleDelete(da.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  삭제
-                </button>
-                <button
-                  onClick={() => handleVisibilityToggle(da.id, da.visibility)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  {da.visibility ? "숨기기" : "공개"}
-                </button>
-              </>
-            )}
-          </div>
-        ))
+        data.map((da) => {
+          // isOwner 변수 설정: 현재 로그인한 사용자의 ID와 결과의 작성자가 동일한지 확인
+          const isOwner = da.userId === user.id;
+
+          return (
+            <div key={da.id} className="border p-4 rounded-lg my-2">
+              <p>사용자: {da.nickname}</p>
+              <p>MBTI 결과: {da.result}</p>
+              <p>날짜: {da.date}</p>
+              {isOwner && ( // isOwner가 true일 때만 버튼을 렌더링
+                <>
+                  <button
+                    onClick={() => handleDelete(da.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                  >
+                    삭제
+                  </button>
+                  <button
+                    onClick={() => handleVisibilityToggle(da.id, da.visibility)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                  >
+                    {da.visibility ? "숨기기" : "공개"}
+                  </button>
+                </>
+              )}
+            </div>
+          );
+        })
       )}
     </>
   );
